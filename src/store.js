@@ -4,7 +4,19 @@ import { v4 as uuidv4 } from 'uuid'; // Import UUID library
 
 // Define the initial state
 const initialState = {
-  employees: [],
+  employees: [
+    {
+      id: '1',
+      firstName: 'John',
+      lastName: 'Doe',
+      dateOfEmployment: '2021-01-01',
+      dateOfBirth: '1990-01-01',
+      phoneNumber: '123-456-7890',
+      emailAddress: 'aaaa@test.com',
+      department: 'Analytics',
+      position: 'Junior'
+    }
+  ],
   currentEmployee: null
 };
 
