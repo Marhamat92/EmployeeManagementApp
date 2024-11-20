@@ -47,6 +47,9 @@ class EmployeeForm extends connect(store)(LitElement) {
       context: EmployeeContext,
       callback: (value) => {
         this.store = value;
+        if (this.isEdit) {
+          this.employee = this.store.state.employee.currentEmployee || this.employee;
+        }
       }
     });
   }

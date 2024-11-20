@@ -1,5 +1,6 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 import { createContext } from '@lit-labs/context';
+import { v4 as uuidv4 } from 'uuid'; // Import UUID library
 
 // Define the initial state
 const initialState = {
@@ -13,7 +14,8 @@ const employeeSlice = createSlice({
   initialState,
   reducers: {
     addEmployee: (state, action) => {
-      state.employees.push(action.payload);
+      const newEmployee = { ...action.payload, id: uuidv4() }; // Generate unique ID
+      state.employees.push(newEmployee);
     },
     updateEmployee: (state, action) => {
       const index = state.employees.findIndex(emp => emp.id === action.payload.id);
@@ -41,4 +43,4 @@ export const store = configureStore({
 });
 
 // Create a context for the store
-export const EmployeeContext = createContext('employee-context', store);
+export const EmployeeContext = createContext('employee-context', store); 
