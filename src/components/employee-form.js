@@ -89,6 +89,18 @@ class EmployeeForm extends connect(store)(LitElement) {
     }
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+
+    console.log('window.location.pathname', window.location.pathname);
+
+
+    if (window.location.pathname.includes('edit-employee')) {
+      this.isEdit = true;
+      store.dispatch({ type: 'SET_CURRENT_EMPLOYEE', employee: this.employee });
+    }
+  }
+
   render() {
     return html`
       <form @submit=${this._handleSubmit}>
