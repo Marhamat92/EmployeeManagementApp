@@ -1,15 +1,59 @@
 import { LitElement, html, css } from 'lit';
+import { unsafeSVG } from 'lit-html/directives/unsafe-svg.js';
+import { loadSVG } from '../utils/svg-loader.js';
 
 class EmployeeTable extends LitElement {
   static styles = css`
-    /* Add your styles here */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+    
+    .pagination {
+      display: flex;
+      gap: 8px;
+    }
+    
+    button {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      height: 32px;
+      width: 32px;
+    }
+
+    .table-buttons {
+      display: flex;
+      gap: 4px;
+      justify-content: center;
+    }
+    
+ 
   `;
 
   static get properties() {
     return {
       employees: { type: Array },
       currentPage: { type: Number },
-      totalPages: { type: Number }
+      totalPages: { type: Number },
+      removeSVG: { type: String },
+      editSVG: { type: String }
     };
   }
 
@@ -18,6 +62,14 @@ class EmployeeTable extends LitElement {
     this.employees = [];
     this.currentPage = 1;
     this.totalPages = 1;
+    this.removeSVG = '';
+    this.editSVG = '';
+  }
+
+  async connectedCallback() {
+    super.connectedCallback();
+    this.editSVG = await loadSVG('../src/icons/editpen.svg');
+    this.removeSVG = await loadSVG('../src/icons/remove.svg');
   }
 
   render() {
@@ -47,9 +99,17 @@ class EmployeeTable extends LitElement {
               <td>${employee.emailAddress}</td>
               <td>${employee.department}</td>
               <td>${employee.position}</td>
-              <td>
-                <button @click=${() => this._editEmployee(employee)}>Edit</button>
-                <button @click=${() => this._deleteEmployee(employee)}>Delete</button>
+              <td class="table-buttons">
+                <button
+                 class="edit"
+                @click=${() => this._editEmployee(employee)}>
+                  ${unsafeSVG(this.editSVG)}
+                </button>
+                <button 
+                class="remove"
+                @click=${() => this._deleteEmployee(employee)}>
+                  ${unsafeSVG(this.removeSVG)}
+                </button>
               </td>
             </tr>
           `)}

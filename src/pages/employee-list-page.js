@@ -5,21 +5,56 @@ import { EmployeeContext, store, setCurrentEmployee, deleteEmployee } from '../s
 import { ContextConsumer } from '@lit-labs/context';
 import { connect } from 'pwa-helpers';
 import { Router } from '@vaadin/router';
+import { unsafeSVG } from 'lit-html/directives/unsafe-svg.js';
+import { loadSVG } from '../utils/svg-loader.js';
 
 class EmployeeListPage extends connect(store)(LitElement) {
   static styles = css`
-    /* Add your styles here */
+    .content-head{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      h2{
+       font-size: 18px;
+       color:#FD8939;
+    }
+    .content {
+      padding: 16px;
+    }
+    .view-buttons {
+      display: flex;
+      gap: 8px;
+    }
+   .listView{
+   height: 36px;
+   width: 36px;
+   }
+
+   .tableView{
+    height: 36px;
+    width: 36px;
+    }
+
+   button{
+   background-color:transparent;
+   border:none;
+   cursor:pointer;  
+  }
+    
   `;
 
   static properties = {
-    employees: { type: Array }
+    employees: { type: Array },
+    listViewSVG: { type: String },
+    tableViewSVG: { type: String }
   };
 
   constructor() {
     super();
     this.employees = [];
     this.store = store;
-
+    this.listViewSVG = '';
+    this.tableViewSVG = '';
     // Set up the context consumer
     this.contextConsumer = new ContextConsumer(this, {
       context: EmployeeContext,
@@ -27,6 +62,12 @@ class EmployeeListPage extends connect(store)(LitElement) {
         this.store = value;
       }
     });
+  }
+
+  async connectedCallback() {
+    super.connectedCallback();
+    this.listViewSVG = await loadSVG('../src/icons/listView.svg');
+    this.tableViewSVG = await loadSVG('../src/icons/tableView.svg');
   }
 
   stateChanged(state) {
@@ -37,10 +78,16 @@ class EmployeeListPage extends connect(store)(LitElement) {
     return html`
       <header-bar></header-bar>
       <div class="content">
+      <div class="content-head">
         <h2>Employee List</h2>
         <div class="view-buttons">
-          <button @click=${this._setTableView}>Table View</button>
-          <button @click=${this._setListView}>List View</button>
+          <button class="tableView" @click=${this._setTableView}>
+            ${unsafeSVG(this.tableViewSVG)}
+          </button>
+          <button class="listView" @click=${this._setListView}>
+            ${unsafeSVG(this.listViewSVG)}
+          </button>
+        </div>
         </div>
         <employee-table .employees=${this.employees} @edit-employee=${this._editEmployee} @delete-employee=${this._deleteEmployee}></employee-table>
       </div>
