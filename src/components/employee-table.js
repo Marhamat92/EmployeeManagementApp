@@ -27,7 +27,10 @@ class EmployeeTable extends LitElement {
     
     .pagination {
       display: flex;
+      justify-content: center;
+      align-items: center;
       gap: 8px;
+      margin-top: 16px;
     }
     
     button {
@@ -43,8 +46,6 @@ class EmployeeTable extends LitElement {
       gap: 4px;
       justify-content: center;
     }
-    
- 
   `;
 
   static get properties() {
@@ -70,9 +71,18 @@ class EmployeeTable extends LitElement {
     super.connectedCallback();
     this.editSVG = await loadSVG('../src/icons/editpen.svg');
     this.removeSVG = await loadSVG('../src/icons/remove.svg');
+    this._updatePagination();
+  }
+
+  _updatePagination() {
+    this.totalPages = Math.ceil(this.employees.length / 10);
   }
 
   render() {
+    const start = (this.currentPage - 1) * 10;
+    const end = this.currentPage * 10;
+    const paginatedEmployees = this.employees.slice(start, end);
+
     return html`
       <table>
         <thead>
@@ -89,7 +99,7 @@ class EmployeeTable extends LitElement {
           </tr>
         </thead>
         <tbody>
-          ${this.employees.map(employee => html`
+          ${paginatedEmployees.map(employee => html`
             <tr>
               <td>${employee.firstName}</td>
               <td>${employee.lastName}</td>
@@ -100,14 +110,10 @@ class EmployeeTable extends LitElement {
               <td>${employee.department}</td>
               <td>${employee.position}</td>
               <td class="table-buttons">
-                <button
-                 class="edit"
-                @click=${() => this._editEmployee(employee)}>
+                <button class="edit" @click=${() => this._editEmployee(employee)}>
                   ${unsafeSVG(this.editSVG)}
                 </button>
-                <button 
-                class="remove"
-                @click=${() => this._deleteEmployee(employee)}>
+                <button class="remove" @click=${() => this._deleteEmployee(employee)}>
                   ${unsafeSVG(this.removeSVG)}
                 </button>
               </td>
@@ -116,9 +122,11 @@ class EmployeeTable extends LitElement {
         </tbody>
       </table>
       <div class="pagination">
+        <button @click=${this._prevPage} ?disabled=${this.currentPage === 1}>&lt;</button>
         ${Array.from({ length: this.totalPages }, (_, i) => html`
-          <button @click=${() => this._changePage(i + 1)}>${i + 1}</button>
+          <button @click=${() => this._changePage(i + 1)} ?disabled=${this.currentPage === i + 1}>${i + 1}</button>
         `)}
+        <button @click=${this._nextPage} ?disabled=${this.currentPage === this.totalPages}>&gt;</button>
       </div>
     `;
   }
@@ -141,7 +149,21 @@ class EmployeeTable extends LitElement {
 
   _changePage(pageNumber) {
     this.currentPage = pageNumber;
-    // Logic to fetch new page data
+    this.requestUpdate();
+  }
+
+  _prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage -= 1;
+      this.requestUpdate();
+    }
+  }
+
+  _nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage += 1;
+      this.requestUpdate();
+    }
   }
 }
 

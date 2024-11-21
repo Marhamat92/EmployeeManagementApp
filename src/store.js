@@ -15,6 +15,127 @@ const initialState = {
       emailAddress: 'aaaa@test.com',
       department: 'Analytics',
       position: 'Junior'
+    },
+    {
+      id: '2',
+      firstName: 'John',
+      lastName: 'Doe',
+      dateOfEmployment: '2021-01-01',
+      dateOfBirth: '1990-01-01',
+      phoneNumber: '123-456-7890',
+      emailAddress: 'aaaa@test.com',
+      department: 'Analytics',
+      position: 'Junior'
+    },
+    {
+      id: '3',
+      firstName: 'John',
+      lastName: 'Doe',
+      dateOfEmployment: '2021-01-01',
+      dateOfBirth: '1990-01-01',
+      phoneNumber: '123-456-7890',
+      emailAddress: 'aaaa@test.com',
+      department: 'Analytics',
+      position: 'Junior'
+    },
+    {
+      id: '4',
+      firstName: 'John',
+      lastName: 'Doe',
+      dateOfEmployment: '2021-01-01',
+      dateOfBirth: '1990-01-01',
+      phoneNumber: '123-456-7890',
+      emailAddress: 'aaaa@test.com',
+      department: 'Analytics',
+      position: 'Junior'
+    },
+    {
+      id: '5',
+      firstName: 'John',
+      lastName: 'Doe',
+      dateOfEmployment: '2021-01-01',
+      dateOfBirth: '1990-01-01',
+      phoneNumber: '123-456-7890',
+      emailAddress: 'aaaa@test.com',
+      department: 'Analytics',
+      position: 'Junior'
+    },
+    {
+      id: '6',
+      firstName: 'John',
+      lastName: 'Doe',
+      dateOfEmployment: '2021-01-01',
+      dateOfBirth: '1990-01-01',
+      phoneNumber: '123-456-7890',
+      emailAddress: 'aaaa@test.com',
+      department: 'Analytics',
+      position: 'Junior'
+    },
+    {
+      id: '7',
+      firstName: 'John',
+      lastName: 'Doe',
+      dateOfEmployment: '2021-01-01',
+      dateOfBirth: '1990-01-01',
+      phoneNumber: '123-456-7890',
+      emailAddress: 'aaaa@test.com',
+      department: 'Analytics',
+      position: 'Junior'
+    },
+    {
+      id: '8',
+      firstName: 'John',
+      lastName: 'Doe',
+      dateOfEmployment: '2021-01-01',
+      dateOfBirth: '1990-01-01',
+      phoneNumber: '123-456-7890',
+      emailAddress: 'aaaa@test.com',
+      department: 'Analytics',
+      position: 'Junior'
+    },
+    {
+      id: '9',
+      firstName: 'John',
+      lastName: 'Doe',
+      dateOfEmployment: '2021-01-01',
+      dateOfBirth: '1990-01-01',
+      phoneNumber: '123-456-7890',
+      emailAddress: 'aaaa@test.com',
+      department: 'Analytics',
+      position: 'Junior'
+    },
+    {
+      id: '10',
+      firstName: 'John',
+      lastName: 'Doe',
+      dateOfEmployment: '2021-01-01',
+      dateOfBirth: '1990-01-01',
+      phoneNumber: '123-456-7890',
+      emailAddress: 'aaaa@test.com',
+      department: 'Analytics',
+      position: 'Junior'
+    },
+    {
+      id: '11',
+      firstName: 'John',
+      lastName: 'Doe',
+      dateOfEmployment: '2021-01-01',
+      dateOfBirth: '1990-01-01',
+      phoneNumber: '123-456-7890',
+      emailAddress: 'aaaa@test.com',
+      department: 'Analytics',
+      position: 'Junior'
+    },
+    {
+      id: '12',
+      firstName: 'John',
+      lastName: 'Doe',
+      dateOfEmployment: '2021-01-01',
+      dateOfBirth: '1990-01-01',
+      phoneNumber: '123-456-7890',
+      emailAddress: 'aaaa@test.com',
+      department: 'Analytics',
+      position: 'Junior'
     }
   ],
   currentEmployee: null
