@@ -74,8 +74,24 @@ class EmployeeTable extends LitElement {
     this._updatePagination();
   }
 
+  updated(changedProperties) {
+    if (changedProperties.has('employees')) {
+      this._updatePagination();
+    }
+  }
+
   _updatePagination() {
     this.totalPages = Math.ceil(this.employees.length / 10);
+    if (this.currentPage > this.totalPages) {
+      this.currentPage = this.totalPages;
+    }
+    this._updateURL();
+  }
+
+  _updateURL() {
+    const url = new URL(window.location);
+    url.searchParams.set('page', this.currentPage);
+    window.history.pushState({}, '', url);
   }
 
   render() {
@@ -149,12 +165,14 @@ class EmployeeTable extends LitElement {
 
   _changePage(pageNumber) {
     this.currentPage = pageNumber;
+    this._updateURL();
     this.requestUpdate();
   }
 
   _prevPage() {
     if (this.currentPage > 1) {
       this.currentPage -= 1;
+      this._updateURL();
       this.requestUpdate();
     }
   }
@@ -162,6 +180,7 @@ class EmployeeTable extends LitElement {
   _nextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage += 1;
+      this._updateURL();
       this.requestUpdate();
     }
   }
