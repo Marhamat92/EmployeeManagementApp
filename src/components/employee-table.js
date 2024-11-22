@@ -6,105 +6,81 @@ import './confirmation-modal.js';
 
 class EmployeeTable extends LitElement {
   static styles = css`
-    .table-container {
-      overflow-x: auto;
-    }
+  .table-container {
+    overflow-x: auto;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+  tr:nth-child(even) {
+    background-color: #fafafa;
+  }
+  .table-buttons {
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+  }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
+  .table-buttons button {
+    padding: 4px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    height: 32px;
+    width: 32px;
+  }
+
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    table, thead, tbody, th, td, tr {
+      display: block;
     }
-    th, td {
+    thead tr {
+      display: none;
+    }
+    tr {
+      margin-bottom: 20px;
       border: 1px solid #ddd;
+    }
+    td {
+      border: none;
       padding: 8px;
+      position: relative;
     }
-
-    th {
-      background-color: #f2f2f2;
+    td[data-label]:before {
+      content: attr(data-label);
+      position: absolute;
+      left: 0;
+      width: 50%;
+      padding-left: 16px;
+      font-weight: bold;
     }
-
-    tr:nth-child(even) {
-      background-color: #f2f2f2;
+    td {
+      padding-left: 50%;
     }
-    
-    tr:hover {
-      background-color: #f1f1f1;
-    }
-    
-    .pagination {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
-      margin-top: 16px;
+    .table-buttons {
+      justify-content: flex-start;
     }
     
-    button {
+    .table-buttons button {
+      padding: 4px;
       background: transparent;
       border: none;
       cursor: pointer;
-      height: 32px;
-      width: 32px;
+      height: 22px;
+      width: 22px;
     }
-
-    .table-buttons {
-      display: flex;
-      gap: 4px;
-      justify-content: center;
-    }
-
-    @media screen and (max-width: 768px) {
-      table, thead, tbody, th, td, tr {
-        display: block;
-      }
-
-      thead tr {
-        position: absolute;
-        top: -9999px;
-        left: -9999px;
-      }
-
-      tr {
-        margin-bottom: 20px;
-        border: 1px solid #ddd;
-      }
-
-      td {
-        border: none;
-        position: relative;
-        padding-left: 50%;
-      }
-
-      td:before {
-        position: absolute;
-        left: 6px;
-        content: attr(data-label);
-        font-weight: bold;
-      }
-
-      .pagination {
-        flex-direction: column;
-        gap: 4px;
-      }
-
-      button {
-        height: 24px;
-        width: 24px;
-      }
-    }
-
-    @media screen and (max-width: 480px) {
-      .pagination {
-        flex-direction: column;
-        gap: 2px;
-      }
-
-      button {
-        height: 20px;
-        width: 20px;
-      }
-    }
-  `;
+  }
+`;
 
   static get properties() {
     return {

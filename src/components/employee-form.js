@@ -8,49 +8,47 @@ import './confirmation-modal.js';
 
 class EmployeeForm extends connect(store)(LitElement) {
   static styles = css`
+  form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  label {
+    font-size: 14px;
+    color: #333;
+  }
+  input, select {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 4px;
+  }
+  button {
+    padding: 12px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #FD8939;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  button[type="button"] {
+    background-color: #6c757d;
+  }
+  /* Responsive styles */
+  @media (max-width: 600px) {
     form {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      padding: 24px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      background-color: #f9f9f9;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    label {
-      display: flex;
-      flex-direction: column;
-      font-size: 14px;
-      color: #333;
-    }
-    input, select {
-      padding: 8px;
-      font-size: 14px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      margin-top: 4px;
+      padding: 16px;
     }
     button {
-      padding: 10px 20px;
-      font-size: 14px;
-      color: #fff;
-      background-color: #007bff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
+      width: 100%;
     }
-    button:hover {
-      background-color: #0056b3;
-    }
-    button[type="button"] {
-      background-color: #6c757d;
-    }
-    button[type="button"]:hover {
-      background-color: #5a6268;
-    }
-  `;
+  }
+`;
 
   static get properties() {
     return {

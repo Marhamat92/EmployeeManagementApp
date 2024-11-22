@@ -3,55 +3,60 @@ import { t } from '../utils/localization.js';
 
 class ConfirmationModal extends LitElement {
   static styles = css`
-    .modal {
-      display: flex;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.4);
-      align-items: center;
-      justify-content: center;
-    }
+  .modal {
+    display: flex;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-content {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 24px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+  }
+  .modal-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 24px;
+  }
+  button {
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+  }
+  .confirm-button {
+    background-color: #FD8939;
+    color: white;
+  }
+  .cancel-button {
+    background-color: #6c757d;
+    color: white;
+  }
+  /* Responsive styles */
+  @media (max-width: 600px) {
     .modal-content {
-      background-color: #fefefe;
-      border: 1px solid #888;
-      border-radius: 8px;
-      padding: 20px;
-      width: 90%;
-      max-width: 400px;
-      text-align: center;
+      padding: 16px;
     }
     .modal-buttons {
-      display: flex;
-      justify-content: space-around;
-      margin-top: 20px;
+      flex-direction: column;
+      gap: 12px;
     }
     button {
-      padding: 8px 16px;
-      font-size: 14px;
-      border-radius: 4px;
-      cursor: pointer;
-      border: none;
+      width: 100%;
     }
-    .confirm-button {
-      background-color: #007bff;
-      color: white;
-    }
-    .confirm-button:hover {
-      background-color: #0056b3;
-    }
-    .cancel-button {
-      background-color: #6c757d;
-      color: white;
-    }
-    .cancel-button:hover {
-      background-color: #5a6268;
-    }
-  `;
+  }
+`;
 
   static properties = {
     open: { type: Boolean },

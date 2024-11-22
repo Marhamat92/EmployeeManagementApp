@@ -11,38 +11,47 @@ import { t, loadLanguage, getCurrentLanguage } from '../utils/localization.js';
 
 class EmployeeListPage extends connect(store)(LitElement) {
   static styles = css`
-    .content-head{
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      h2{
-       font-size: 18px;
-       color:#FD8939;
-    }
-    .content {
-      padding: 16px;
-    }
-    .view-buttons {
-      display: flex;
-      gap: 8px;
-    }
-   .listView{
-   height: 36px;
-   width: 36px;
-   }
-
-   .tableView{
+  .content {
+    padding: 16px;
+  }
+  .content-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .content-head h2 {
+    font-size: 24px;
+    color: #FD8939;
+  }
+  .view-buttons {
+    display: flex;
+    gap: 8px;
+  }
+  .view-buttons button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  .listView, .tableView {
     height: 36px;
     width: 36px;
-    }
-
-   button{
-   background-color:transparent;
-   border:none;
-   cursor:pointer;  
   }
-    
-  `;
+  /* Responsive styles */
+  @media (max-width: 600px) {
+    .content-head {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .content-head h2 {
+      font-size: 20px;
+    }
+    .view-buttons {
+      align-self: stretch;
+      justify-content: space-between;
+    }
+  }
+`;
 
   static properties = {
     employees: { type: Array },

@@ -4,36 +4,53 @@ import { loadLanguage, t, getCurrentLanguage } from '../utils/localization.js';
 
 class HeaderBar extends LitElement {
   static styles = css`
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 16px;
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+  }
+  header img {
+    height: 24px;
+  }
+  header div {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  header button {
+    padding: 8px 16px;
+    background: transparent;
+    color: #FD8939;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  header span {
+    font-size: 16px;
+    color: #FD8939;
+    font-weight: bold;
+  }
+  /* Responsive styles */
+  @media (max-width: 600px) {
     header {
-      display: flex;
+    display:flex;
+       align-items: center;
       justify-content: space-between;
-      align-items: center;
-      padding: 4px;
-      background-color: white;
-      border: 1px solid #ddd;
-    }
-    header img {
-      height: 20px;
     }
     header div {
       display: flex;
-      align-items: center;
-      gap: 16px;
+    align-items: center;
+      width: 100%;
     }
-    header button {
-      padding: 8px 16px;
-      background: transparent;
-      color: #FD8939;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
+ 
     header span {
-      font-size: 14px;
-      color: #FD8939;
-      font-weight: bold;
+      display: none;
     }
-  `;
+  }
+`;
 
   static get properties() {
     return {
@@ -62,9 +79,11 @@ class HeaderBar extends LitElement {
   render() {
     return html`
       <header>
+      <div>
         <img src="https://www.ing.com.tr/F/Documents/Images/kurumsal_logo_genel_mudurluk/ING_Logo_BeyazBG_Big.png" alt="Bank Logo" /> 
+        </div>
         <div>
-          <span>${t('employees')}</span>
+            <span>${t('employees')}</span> 
           <button @click=${this._addEmployee}>${t('add_new')}</button>
           <button @click=${this._toggleLanguage}>
             ${this.currentLanguage === 'en' ? 'English' : 'Türkçe'}
