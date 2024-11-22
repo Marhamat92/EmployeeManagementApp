@@ -3,6 +3,7 @@ import { store, addEmployee, updateEmployee, EmployeeContext } from '../store.js
 import { ContextConsumer } from '@lit-labs/context';
 import { connect } from 'pwa-helpers';
 import { Router } from '@vaadin/router';
+import { t } from '../utils/localization.js';
 
 class EmployeeForm extends connect(store)(LitElement) {
   static styles = css`
@@ -94,7 +95,6 @@ class EmployeeForm extends connect(store)(LitElement) {
 
     console.log('window.location.pathname', window.location.pathname);
 
-
     if (window.location.pathname.includes('edit-employee')) {
       this.isEdit = true;
       store.dispatch({ type: 'SET_CURRENT_EMPLOYEE', employee: this.employee });
@@ -105,46 +105,46 @@ class EmployeeForm extends connect(store)(LitElement) {
     return html`
       <form @submit=${this._handleSubmit}>
         <label>
-          First Name:
+          ${t('first_name')}:
           <input type="text" .value=${this.employee.firstName} @input=${e => this._updateField(e, 'firstName')} required>
         </label>
         <label>
-          Last Name:
+          ${t('last_name')}:
           <input type="text" .value=${this.employee.lastName} @input=${e => this._updateField(e, 'lastName')} required>
         </label>
         <label>
-          Date of Employment:
+          ${t('date_of_employment')}:
           <input type="date" .value=${this.employee.dateOfEmployment} @input=${e => this._updateField(e, 'dateOfEmployment')} required>
         </label>
         <label>
-          Date of Birth:
+          ${t('date_of_birth')}:
           <input type="date" .value=${this.employee.dateOfBirth} @input=${e => this._updateField(e, 'dateOfBirth')} required>
         </label>
         <label>
-          Phone Number:
+          ${t('phone_number')}:
           <input type="tel" .value=${this.employee.phoneNumber} @input=${e => this._updateField(e, 'phoneNumber')} required>
         </label>
         <label>
-          Email Address:
+          ${t('email_address')}:
           <input type="email" .value=${this.employee.emailAddress} @input=${e => this._updateField(e, 'emailAddress')} required>
         </label>
         <label>
-          Department:
+          ${t('department')}:
           <select .value=${this.employee.department} @change=${e => this._updateField(e, 'department')}>
             <option value="Analytics">Analytics</option>
             <option value="Tech">Tech</option>
           </select>
         </label>
         <label>
-          Position:
+          ${t('position')}:
           <select .value=${this.employee.position} @change=${e => this._updateField(e, 'position')}>
             <option value="Junior">Junior</option>
             <option value="Medior">Medior</option>
             <option value="Senior">Senior</option>
           </select>
         </label>
-        <button type="submit">${this.isEdit ? 'Save Changes' : 'Add Employee'}</button>
-        <button type="button" @click=${this._cancel}>Cancel</button>
+        <button type="submit">${this.isEdit ? t('save_changes') : t('add_employee')}</button>
+        <button type="button" @click=${this._cancel}>${t('cancel')}</button>
       </form>
     `;
   }

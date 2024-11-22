@@ -1,0 +1,15 @@
+{
+  "employees": "Employees",
+  "add_new": "+ Add New",
+  "first_name": "First Name",
+  "last_name": "Last Name",
+  "date_of_employment": "Date of Employment",
+  "date_of_birth": "Date of Birth",
+  "phone_number": "Phone Number",
+  "email_address": "Email Address",
+  "department": "Department",
+  "position": "Position",
+  "save_changes": "Save Changes",
+  "add_employee": "Add Employee",
+  "cancel": "Cancel"
+}

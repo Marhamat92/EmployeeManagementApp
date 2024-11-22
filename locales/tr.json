@@ -1,0 +1,15 @@
+{
+  "employees": "Çalışanlar",
+  "add_new": "+ Yeni Ekle",
+  "first_name": "Ad",
+  "last_name": "Soyad",
+  "date_of_employment": "İşe Başlama Tarihi",
+  "date_of_birth": "Doğum Tarihi",
+  "phone_number": "Telefon Numarası",
+  "email_address": "E-posta Adresi",
+  "department": "Departman",
+  "position": "Pozisyon",
+  "save_changes": "Değişiklikleri Kaydet",
+  "add_employee": "Çalışan Ekle",
+  "cancel": "İptal"
+}
