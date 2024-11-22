@@ -12,5 +12,9 @@
   "save_changes": "Değişiklikleri Kaydet",
   "add_employee": "Çalışan Ekle",
   "cancel": "İptal",
-  "employeelist": "Çalışan Listesi"
+  "employeelist": "Çalışan Listesi",
+  "are_you_sure_delete": "Bu çalışanı silmek istediğinizden emin misiniz?",
+  "ok": "Tamam",
+  "are_you_sure_edit": "Değişiklikleri kaydetmek istediğinizden emin misiniz?"
+
 }

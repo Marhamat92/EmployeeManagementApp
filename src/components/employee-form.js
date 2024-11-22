@@ -4,6 +4,7 @@ import { ContextConsumer } from '@lit-labs/context';
 import { connect } from 'pwa-helpers';
 import { Router } from '@vaadin/router';
 import { t } from '../utils/localization.js';
+import './confirmation-modal.js';
 
 class EmployeeForm extends connect(store)(LitElement) {
   static styles = css`
@@ -54,7 +55,8 @@ class EmployeeForm extends connect(store)(LitElement) {
   static get properties() {
     return {
       employee: { type: Object },
-      isEdit: { type: Boolean }
+      isEdit: { type: Boolean },
+      showEditModal: { type: Boolean },
     };
   }
 
@@ -82,7 +84,9 @@ class EmployeeForm extends connect(store)(LitElement) {
         }
       }
     });
+    this.showEditModal = false;
   }
+
 
   stateChanged(state) {
     if (this.isEdit) {
@@ -146,6 +150,12 @@ class EmployeeForm extends connect(store)(LitElement) {
         <button type="submit">${this.isEdit ? t('save_changes') : t('add_employee')}</button>
         <button type="button" @click=${this._cancel}>${t('cancel')}</button>
       </form>
+       <confirmation-modal
+      .open=${this.showEditModal}
+      .message=${t('are_you_sure_edit')}
+      @confirm=${this._handleEditConfirm}
+      @cancel=${this._handleEditCancel}
+    ></confirmation-modal>
     `;
   }
 
@@ -155,13 +165,24 @@ class EmployeeForm extends connect(store)(LitElement) {
 
   _handleSubmit(e) {
     e.preventDefault();
+    this.showEditModal = true;
+  }
+
+  _handleEditConfirm() {
     if (this.isEdit) {
       store.dispatch(updateEmployee(this.employee));
     } else {
       store.dispatch(addEmployee(this.employee));
     }
+    this.showEditModal = false;
     Router.go('/');
   }
+
+  _handleEditCancel() {
+    this.showEditModal = false;
+  }
+
+
 
   _cancel() {
     Router.go('/');

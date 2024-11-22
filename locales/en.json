@@ -12,5 +12,9 @@
   "save_changes": "Save Changes",
   "add_employee": "Add Employee",
   "cancel": "Cancel",
-  "employeelist": "Employee List"
+  "employeelist": "Employee List",
+  "are_you_sure_delete": "Are you sure you want to delete this employee?",
+  "ok": "Ok",
+  "are_you_sure_edit": "Are you sure you want to save changes?"
+
 }

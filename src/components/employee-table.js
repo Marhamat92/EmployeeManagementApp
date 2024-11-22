@@ -2,6 +2,7 @@ import { LitElement, html, css } from 'lit';
 import { unsafeSVG } from 'lit-html/directives/unsafe-svg.js';
 import { loadSVG } from '../utils/svg-loader.js';
 import { t } from '../utils/localization.js';
+import './confirmation-modal.js';
 
 class EmployeeTable extends LitElement {
   static styles = css`
@@ -111,7 +112,9 @@ class EmployeeTable extends LitElement {
       currentPage: { type: Number },
       totalPages: { type: Number },
       removeSVG: { type: String },
-      editSVG: { type: String }
+      editSVG: { type: String },
+      showDeleteModal: { type: Boolean },
+      employeeToDelete: { type: Object },
     };
   }
 
@@ -122,6 +125,8 @@ class EmployeeTable extends LitElement {
     this.totalPages = 1;
     this.removeSVG = '';
     this.editSVG = '';
+    this.showDeleteModal = false;
+    this.employeeToDelete = null;
   }
 
   async connectedCallback() {
@@ -222,6 +227,14 @@ class EmployeeTable extends LitElement {
           <button @click=${this._nextPage} ?disabled=${this.currentPage === this.totalPages}>&gt;</button>
         </div>
       </div>
+    <div>
+       <confirmation-modal
+      .open=${this.showDeleteModal}
+      .message=${t('are_you_sure_delete')}
+      @confirm=${this._handleDeleteConfirm}
+      @cancel=${this._handleDeleteCancel}
+    ></confirmation-modal>
+    </div>
     `;
   }
 
@@ -234,11 +247,23 @@ class EmployeeTable extends LitElement {
   }
 
   _deleteEmployee(employee) {
+    this.employeeToDelete = employee;
+    this.showDeleteModal = true;
+  }
+
+  _handleDeleteConfirm() {
     this.dispatchEvent(new CustomEvent('delete-employee', {
-      detail: { id: employee.id },
+      detail: { id: this.employeeToDelete.id },
       bubbles: true,
-      composed: true
+      composed: true,
     }));
+    this.showDeleteModal = false;
+    this.employeeToDelete = null;
+  }
+
+  _handleDeleteCancel() {
+    this.showDeleteModal = false;
+    this.employeeToDelete = null;
   }
 
   _changePage(pageNumber) {
