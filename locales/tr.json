@@ -11,5 +11,6 @@
   "position": "Pozisyon",
   "save_changes": "Değişiklikleri Kaydet",
   "add_employee": "Çalışan Ekle",
-  "cancel": "İptal"
+  "cancel": "İptal",
+  "employeelist": "Çalışan Listesi"
 }

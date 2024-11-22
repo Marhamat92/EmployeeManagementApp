@@ -7,6 +7,7 @@ import { connect } from 'pwa-helpers';
 import { Router } from '@vaadin/router';
 import { unsafeSVG } from 'lit-html/directives/unsafe-svg.js';
 import { loadSVG } from '../utils/svg-loader.js';
+import { t, loadLanguage, getCurrentLanguage } from '../utils/localization.js';
 
 class EmployeeListPage extends connect(store)(LitElement) {
   static styles = css`
@@ -46,7 +47,9 @@ class EmployeeListPage extends connect(store)(LitElement) {
   static properties = {
     employees: { type: Array },
     listViewSVG: { type: String },
-    tableViewSVG: { type: String }
+    tableViewSVG: { type: String },
+    currentLanguage: { type: String },
+    _languageLoaded: { type: Boolean },
   };
 
   constructor() {
@@ -62,24 +65,58 @@ class EmployeeListPage extends connect(store)(LitElement) {
         this.store = value;
       }
     });
+    this.currentLanguage = getCurrentLanguage();
+    this._languageLoaded = false;
+    this._onLanguageChanged = this._onLanguageChanged.bind(this);
+
   }
 
   async connectedCallback() {
     super.connectedCallback();
     this.listViewSVG = await loadSVG('../src/icons/listView.svg');
-    this.tableViewSVG = await loadSVG('../src/icons/tableView.svg');
+    this.tableViewSVG = await loadSVG('../src/icons/tableView.svg');;
   }
+
+  async connectedCallback() {
+    super.connectedCallback();
+    document.addEventListener('language-changed', this._onLanguageChanged);
+
+
+    // Wait for the language to load if not already loaded
+    if (!this._languageLoaded) {
+      await loadLanguage(getCurrentLanguage());
+    }
+    this._languageLoaded = true;
+  }
+
+  disconnectedCallback() {
+    document.removeEventListener('language-changed', this._onLanguageChanged);
+    super.disconnectedCallback();
+  }
+
+
+  _onLanguageChanged(event) {
+    this.currentLanguage = event.detail.lang;
+    this.requestUpdate();
+  }
+
 
   stateChanged(state) {
     this.employees = state.employee.employees;
   }
 
   render() {
+    if (!this._languageLoaded) {
+      // Optionally, show a loading indicator
+      return html`<p>Loading...</p>`;
+    }
     return html`
       <header-bar></header-bar>
       <div class="content">
       <div class="content-head">
-        <h2>Employee List</h2>
+        <h2>
+          ${t('employeelist')}
+        </h2>
         <div class="view-buttons">
           <button class="tableView" @click=${this._setTableView}>
             ${unsafeSVG(this.tableViewSVG)}

@@ -37,13 +37,26 @@ class HeaderBar extends LitElement {
 
   static get properties() {
     return {
-      currentLanguage: { type: String }
+      currentLanguage: { type: String },
+      _languageLoaded: { type: Boolean },
     };
   }
 
   constructor() {
     super();
     this.currentLanguage = getCurrentLanguage();
+    this._languageLoaded = false;
+  }
+
+
+  async connectedCallback() {
+    super.connectedCallback();
+    // Wait for the language to load if not already loaded
+    if (!this._languageLoaded) {
+      await loadLanguage(this.currentLanguage);
+    }
+    this._languageLoaded = true;
+    this.requestUpdate();
   }
 
   render() {

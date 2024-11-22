@@ -11,5 +11,6 @@
   "position": "Position",
   "save_changes": "Save Changes",
   "add_employee": "Add Employee",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "employeelist": "Employee List"
 }
