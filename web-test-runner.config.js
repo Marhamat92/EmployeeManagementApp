@@ -4,8 +4,8 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-import {legacyPlugin} from '@web/dev-server-legacy';
-import {playwrightLauncher} from '@web/test-runner-playwright';
+import { legacyPlugin } from '@web/dev-server-legacy';
+import { playwrightLauncher } from '@web/test-runner-playwright';
 
 const mode = process.env.MODE || 'dev';
 if (!['dev', 'prod'].includes(mode)) {
@@ -53,9 +53,9 @@ if (!['dev', 'prod'].includes(mode)) {
 const browsers = {
   // Local browser testing via playwright
   // ===========
-  chromium: playwrightLauncher({product: 'chromium'}),
-  firefox: playwrightLauncher({product: 'firefox'}),
-  webkit: playwrightLauncher({product: 'webkit'}),
+  chromium: playwrightLauncher({ product: 'chromium' }),
+  firefox: playwrightLauncher({ product: 'firefox' }),
+  webkit: playwrightLauncher({ product: 'webkit' }),
 
   // Uncomment example launchers for running on Sauce Labs
   // ===========
@@ -88,14 +88,18 @@ try {
 export default {
   rootDir: '.',
   files: ['./test/**/*_test.js'],
-  nodeResolve: {exportConditions: mode === 'dev' ? ['development'] : []},
+  nodeResolve: true,
   preserveSymlinks: true,
-  browsers: commandLineBrowsers ?? Object.values(browsers),
+  browsers: [
+    playwrightLauncher({ product: 'chromium' }),
+    playwrightLauncher({ product: 'firefox' }),
+    playwrightLauncher({ product: 'webkit' }),
+  ],
   testFramework: {
     // https://mochajs.org/api/mocha
     config: {
       ui: 'tdd',
-      timeout: '60000',
+      timeout: '10000',
     },
   },
   plugins: [
